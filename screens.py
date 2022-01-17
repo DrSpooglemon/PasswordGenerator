@@ -3,11 +3,11 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 
 
-class MainScreen(Screen):
-    '''Generic Kivy screen'''
+class PasswordGeneratorMainScreen(Screen):
+    
     def __init__(self, callback, **kwargs):
         super().__init__(**kwargs)
-        #self.add_widget(
+
         self.password_display = Label(
                 color=(0, 0, 0, 1),
                 font_size=25,
@@ -15,11 +15,6 @@ class MainScreen(Screen):
                 pos_hint={'center_x': .5,
                           'center_y': .6})
 
-        # self.password_display = Label(
-        #     color=(0, 0, 0, 1),
-        #     size_hint=(None, None),
-        #     pos_hint={'center_x': .5,
-        #               'center_y': .5})
         self.add_widget(self.password_display)
 
         self.add_widget(

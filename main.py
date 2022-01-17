@@ -10,14 +10,15 @@ from screens import *
 from password_generator import generate_password
 
 
-class App(App):
-    '''Generic Kivy app'''
+class PasswordGeneratorApp(App):
+
     screen_manager = ScreenManager()
     display_string = StringProperty('')
     password = StringProperty('Secure Password Generator')
 
     def build(self):
-        self.main_screen = MainScreen(callback=self.button_pressed)
+        self.main_screen = PasswordGeneratorMainScreen(
+            callback=self.button_pressed)
         self.screen_manager.add_widget(self.main_screen)
         self.display_string = self.password
         return self.screen_manager
@@ -28,10 +29,11 @@ class App(App):
 
     def on_password(self, _, text):
         print(text)
+        Clock.unschedule(self._update_password_display)
         self.char_index = len(text)-1
-        Clock.schedule_interval(self._update_password, .0001)
-
-    def _update_password(self, _):
+        Clock.schedule_interval(self._update_password_display, .001)
+        
+    def _update_password_display(self, _):
         i = self.char_index
         op, od = ord(self.password[i]), ord(self.display_string[i])
         c = chr(od + (op > od) - (op < od))
@@ -45,4 +47,4 @@ class App(App):
 
 
 if __name__ == '__main__':
-    App().run()
+    PasswordGeneratorApp().run()
